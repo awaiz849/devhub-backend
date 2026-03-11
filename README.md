@@ -8,8 +8,8 @@ Mini developer platform backend built with Node.js, Express, and MongoDB.
 - Environment variables setup
 - Nodemon development workflow
 
-Tech Stack:
-Node.js
-Express
-MongoDB
-Mongoose
+## Tech Stack
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
