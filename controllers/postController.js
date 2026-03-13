@@ -1,5 +1,5 @@
 const Post = require("../models/post")
-
+// Create post
 exports.createPost = async (req, res) => {
   try {
     const { content, userId } = req.body
@@ -26,6 +26,7 @@ exports.getPosts = async (req, res) => {
     res.status(500).json({ message: error.message })
   }
 }
+// like post
 exports.likePost = async (req, res) => {
   try {
     const { postId } = req.params
@@ -45,6 +46,50 @@ exports.likePost = async (req, res) => {
     res.json({
       message: "Post liked",
       post,
+    })
+  } catch (error) {
+    res.status(500).json({ message: error.message })
+  }
+}
+// unlike post
+exports.unlikePost = async (req, res) => {
+  try {
+    const { postId } = req.params
+    const { userId } = req.body
+
+    const post = await Post.findById(postId)
+
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" })
+    }
+
+    // remove like
+    post.likes = post.likes.filter((id) => id.toString() !== userId)
+
+    await post.save()
+
+    res.json({
+      message: "Post unliked",
+      post,
+    })
+  } catch (error) {
+    res.status(500).json({ message: error.message })
+  }
+}
+exports.deletePost = async (req, res) => {
+  try {
+    const { postId } = req.params
+
+    const post = await Post.findById(postId)
+
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" })
+    }
+
+    await post.deleteOne()
+
+    res.json({
+      message: "Post deleted successfully",
     })
   } catch (error) {
     res.status(500).json({ message: error.message })
