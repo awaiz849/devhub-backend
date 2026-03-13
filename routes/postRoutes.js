@@ -9,10 +9,13 @@ const {
   deletePost,
 } = require("../controllers/postController")
 
-router.post("/", createPost)
+const authMiddleware = require("../middleware/authMiddleware")
+
 router.get("/", getPosts)
-router.post("/:postId/like", likePost)
-router.post("/:postId/unlike", unlikePost)
-router.delete("/:postId", deletePost)
+
+router.post("/", authMiddleware, createPost)
+router.post("/:postId/like", authMiddleware, likePost)
+router.post("/:postId/unlike", authMiddleware, unlikePost)
+router.delete("/:postId", authMiddleware, deletePost)
 
 module.exports = router

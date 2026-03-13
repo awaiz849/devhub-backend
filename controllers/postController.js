@@ -2,7 +2,8 @@ const Post = require("../models/post")
 // Create post
 exports.createPost = async (req, res) => {
   try {
-    const { content, userId } = req.body
+    const { content } = req.body
+    const userId = req.user.id
 
     const post = await Post.create({
       user: userId,
@@ -76,6 +77,7 @@ exports.unlikePost = async (req, res) => {
     res.status(500).json({ message: error.message })
   }
 }
+//Delete Post
 exports.deletePost = async (req, res) => {
   try {
     const { postId } = req.params
