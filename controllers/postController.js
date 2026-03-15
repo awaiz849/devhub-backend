@@ -97,3 +97,14 @@ exports.deletePost = async (req, res) => {
     res.status(500).json({ message: error.message })
   }
 }
+exports.getPosts = async (req, res) => {
+  try {
+    const posts = await Post.find()
+      .populate("user", "name email")
+      .sort({ createdAt: -1 })
+
+    res.json(posts)
+  } catch (error) {
+    res.status(500).json({ message: error.message })
+  }
+}
