@@ -97,6 +97,7 @@ exports.deletePost = async (req, res) => {
     res.status(500).json({ message: error.message })
   }
 }
+//get post 
 exports.getPosts = async (req, res) => {
   try {
     const posts = await Post.find()

@@ -9,5 +9,6 @@ const {
 
 router.post("/register", registerUser)
 router.post("/login", loginUser)
+router.get("/profile", authMiddleware, getUserProfile)
 
 module.exports = router
